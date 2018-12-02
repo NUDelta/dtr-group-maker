@@ -1,7 +1,7 @@
 # DTR Group Maker
 Splits the class into two groups for Pair Research and LIP. Respects pairings and preferred LIP groups
-[Demo](http://users.eecs.northwestern.edu/~hq/dtr-group-maker/hq.html)
 ===
+[Demo](http://users.eecs.northwestern.edu/~hq/dtr-group-maker/hq.html)
 
 During [DTR](http://dtr.northwestern.edu) Studio Meetings, to give mentors more time to work with students directly on [LIPs](https://docs.google.com/presentation/d/1HyF1nBkCXPEkq6xRES_pJXdHECz0Y1NzOQSDPF1WtaY/edit?usp=sharing), we split the class into two groups:
 - Group A works on [LIPs](https://docs.google.com/presentation/d/1HyF1nBkCXPEkq6xRES_pJXdHECz0Y1NzOQSDPF1WtaY/edit?usp=sharing) in the first hour, and [Pair Research](http://pairresearch.io) in the second hour.
