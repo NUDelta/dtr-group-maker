@@ -1,6 +1,9 @@
 # DTR Group Maker
-#### Splits the class into two groups for Pair Research and LIP. Respects pairings and preferred LIP groups
+
+Splits the class into two groups for Pair Research and LIP. Respects pairings and preferred LIP groups.
+
 ===
+
 [Demo](http://users.eecs.northwestern.edu/~hq/dtr-group-maker/hq.html)
 
 
