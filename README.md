@@ -1,4 +1,4 @@
-# dtr-group-maker
+# DTR Group Maker
 Splits the class into two groups for Pair Research and LIP. Respects pairings and preferred LIP groups
 
 ===
