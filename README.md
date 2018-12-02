@@ -17,7 +17,7 @@ The tool does this by computing all near-even partitions and identifies candidat
 [Demo](http://users.eecs.northwestern.edu/~hq/dtr-group-maker/hq.html)
 
 Screenshot:
-![Screenshot](/images/screenshot.png?raw=true)
+![Screenshot](/images/screenshot.png?raw=true | width=50)
 
 
 ###### Note: to fully respect pair research matchings, we must allow for unequal group sizes; for example, if there are 10 students paired, then groups should have 4/6 people instead of 5/5.
