@@ -136,15 +136,6 @@ $(function() {
 	return count;
     }
 
-	
-    
-    //   note how many preferences they respect in A
-    // respect means if both people are in set
-    // note how many preferences they respect in B
-    // PAIR RESEARCH ARE HARD CONSTRAINTS
-    
-
-    
     // make a set of all people
     function makeListFromPrefs(prefs){
 	// prefs: ["a,b","c,d,e"]
