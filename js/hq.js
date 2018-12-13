@@ -64,22 +64,19 @@ $(function() {
 
 
     // Assign a color to each pref and create an index
-    function displayGroup(ele, group, colorIndex){
-	console.log("ele", ele)
-	console.log("group", group)
-	console.log("colorIndex", colorIndex)
+    function displayGroup(ele, group, ci){
 	var content = $('<div />')
 	for (var i = 0; i < group.length - 1 ; i++){
-	    if (group[i] in colorIndex)
-		content.append($('<span />').css('color', colorIndex[group[i]]).text(group[i] + ", "))
+	    if (group[i] in ci)
+		content.append($('<span />').css('color', ci[group[i]]).text(group[i] + ", "))
 	    else
 		content.append($('<span />').text(group[i] + ", "))
 	}
-	if (group[group.length-1] in colorIndex)
-	    content.append($('<span />').css('color', colorIndex[group[group.length-1]]).text(group[group.length-1]))
+	if (group[group.length-1] in ci)
+	    content.append($('<span />').css('color', ci[group[group.length-1]]).text(group[group.length-1]))
 	else
 	    content.append($('<span />').text(group[group.length-1]))
-	ele.replaceWith(content)
+	ele.html(content)
     }
     
     // Assign a color to each pref and create an index
@@ -96,7 +93,6 @@ $(function() {
 		colorIndex[people[j]] = colors[i];
 	    }
 	}
-	console.log(colorIndex);
 	return colorIndex;
     }
     
@@ -105,7 +101,7 @@ $(function() {
     function computeGroups(hardPrefs, softPrefs){
 	// find everyone who is here today
 	var people = makeListFromPrefs(hardPrefs);
-	console.log("People: " + people)
+	//	console.log("People: " + people)
 
 	// get candidate groupings that satisfy pair research matches
 	var candidates = computeGoodHardPartitions(people, hardPrefs);
