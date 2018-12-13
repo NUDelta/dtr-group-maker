@@ -32,9 +32,12 @@ $(function() {
     
     $('#computeGroups').on("click", function(e) {
 	candidateList = computeGroups(pairList, lipList);
+	var colorIndex = assignColors(lipList)
 	if(candidateList.length > 0){
-	    $("#groupA").text(candidateList[0][0])
-	    $("#groupB").text(candidateList[0][1])
+	    displayGroup($("#groupA"), candidateList[0][0], colorIndex)
+	    displayGroup($("#groupB"), candidateList[0][1], colorIndex)
+//	    $("#groupA").text(candidateList[0][0])
+//	    $("#groupB").text(candidateList[0][1])
 	}
 	
 	$([document.documentElement, document.body]).animate({
@@ -59,6 +62,44 @@ $(function() {
 	return this.filter(function(i) {return a.indexOf(i) < 0;});
     };
 
+
+    // Assign a color to each pref and create an index
+    function displayGroup(ele, group, colorIndex){
+	console.log("ele", ele)
+	console.log("group", group)
+	console.log("colorIndex", colorIndex)
+	var content = $('<div />')
+	for (var i = 0; i < group.length - 1 ; i++){
+	    if (group[i] in colorIndex)
+		content.append($('<span />').css('color', colorIndex[group[i]]).text(group[i] + ", "))
+	    else
+		content.append($('<span />').text(group[i] + ", "))
+	}
+	if (group[group.length-1] in colorIndex)
+	    content.append($('<span />').css('color', colorIndex[group[group.length-1]]).text(group[group.length-1]))
+	else
+	    content.append($('<span />').text(group[group.length-1]))
+	ele.replaceWith(content)
+    }
+    
+    // Assign a color to each pref and create an index
+    function assignColors(prefs){
+	// assumes no more than colors.length number of prefs
+	var colors = ['#3cb44b', '#4363d8',  '#911eb4', '#46f0f0',  '#9a6324', '#fffac8', '#800000', '#808000', '#000075'];
+
+
+	var colorIndex = {};
+	colors = colors.slice(0, prefs.length);
+	for (var i = 0; i < prefs.length; i++){
+	    var people = prefs[i].split(",");
+	    for (var j = 0; j < people.length; j++){
+		colorIndex[people[j]] = colors[i];
+	    }
+	}
+	console.log(colorIndex);
+	return colorIndex;
+    }
+    
     // Form 2 groups that satisfy hard preferences to stay together
     // and maximizes the number of soft preferences met
     function computeGroups(hardPrefs, softPrefs){
