@@ -10,7 +10,7 @@ This tool helps us make these two groups by:
 - Preferring all LIP groups, so that students working on the same LIP are put in the same group whenever possible.
 
 The tool does this by computing all near-even partitions and identifies candidate partitions that fully respects pair researching matches and prefers LIP groupings as able.
-  
+
 
 ===
 
@@ -18,4 +18,4 @@ The tool does this by computing all near-even partitions and identifies candidat
 ### Screenshot:
 <img src="/images/screenshot.png?raw=true" width="400px">
 
-###### Note: to fully respect pair research matchings, we must allow for unequal group sizes; for example, if there are 10 students paired, then groups should have 4/6 people instead of 5/5.
+###### Note: to fully respect pair research matchings, we must allow for unequal group sizes; for example, if there are 10 students paired, then groups could have 4/6 people instead of 5/5.

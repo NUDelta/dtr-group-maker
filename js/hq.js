@@ -10,11 +10,17 @@ $(function() {
         }
     });
 
+    // helper function for string replace all
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
+
     /*
       Populating DTR students for the quarter.
       Updated last: S2019
      */
-    var peopleList = ['Leesha',
+    var peopleList = [
+        'Leesha',
         'Ryan L',
         'Yongsung',
         'Kapil',
@@ -68,7 +74,12 @@ $(function() {
 
         // check if not blank
         if (currPairTags !== '') {
-            $('#pairResults').append(currPairTags + "<br/>");
+            // add to pairResults div
+            $('#pairResults').append($('<span />')
+                           .text(replaceAll(currPairTags, ',', ', ')));
+            $('#pairResults').append('<br/>');
+
+            // store information for partitioning later on
             pairList.push(currPairTags);
             $("#pair-tags")[0].selectize.clear();
         }
@@ -76,10 +87,16 @@ $(function() {
 
     // undo last add to pairing list
     $('#undoPair').on("click", function(e) {
+      // remove from paritioning data
         pairList.pop();
+
+        // remove from UI
         $('#pairResults').text("")
-        for (var i = 0; i < pairList.length; i++)
-            $('#pairResults').append(pairList[i] + "<br/>");
+        for (var i = 0; i < pairList.length; i++) {
+            $('#pairResults').append($('<span />')
+                           .text(replaceAll(pairList[i], ',', ', ')));
+            $('#pairResults').append('<br/>');
+        }
     });
 
 
@@ -89,7 +106,20 @@ $(function() {
 
         // check if not blank
         if (currLipTags !== '') {
-            $('#lipGroups').append(currLipTags + "<br/>");
+            // add to lipGroups div with correct color
+            var currLipColor = '';
+            if (lipList.length >= colors.length) {
+              currLipColor = defaultColor;
+            } else {
+              currLipColor = colors[lipList.length];
+            }
+
+            $('#lipGroups').append($('<span />')
+                           .css('color', currLipColor)
+                           .text(replaceAll(currLipTags, ',', ', ')));
+            $('#lipGroups').append('<br/>');
+
+            // store information for partitioning later on
             lipList.push(currLipTags);
             $("#lip-tags")[0].selectize.clear();
         }
@@ -97,15 +127,32 @@ $(function() {
 
     // undo last add to lip group list
     $('#undoGroup').on("click", function(e) {
+        // remove from paritioning data
         lipList.pop();
+
+        // remove from UI
         $('#lipGroups').text("")
-        for (var i = 0; i < lipList.length; i++)
-            $('#lipGroups').append(lipList[i] + "<br/>");
+        for (var i = 0; i < lipList.length; i++) {
+          var currLipColor = '';
+            if (i >= colors.length) {
+              currLipColor = defaultColor;
+            } else {
+              currLipColor = colors[i];
+            }
+
+          $('#lipGroups').append($('<span />')
+                           .css('color', currLipColor)
+                           .text(replaceAll(lipList[i], ',', ', ')));
+          $('#lipGroups').append('<br/>');
+        }
     });
 
     var candidateList = [];
     $('#computeGroups').on("click", function(e) {
+        // compute groups
         candidateList = computeGroups(pairList, lipList);
+
+        // get colors for each lip
         var colorIndex = assignColors(lipList)
         if (candidateList.length > 0) {
             displayGroup($("#groupA"), candidateList[0][0], colorIndex)
@@ -140,25 +187,50 @@ $(function() {
 
 
     // Assign a color to each pref and create an index
-    function displayGroup(ele, group, ci) {
+    function displayGroup(ele, group, colorIndex) {
+        // pre-initialize colors dictionar
+        var colorGroups = {};
+        colors.forEach(function(color) {
+          colorGroups[color] = [];
+        });
+        colorGroups[defaultColor] = [];
+
+        // group people by LIP color
+        group.forEach(function(currPerson) {
+          // add person to each color group based on their assigned color
+          if (currPerson in colorIndex) {
+            var currColor = colorIndex[currPerson];
+            colorGroups[currColor].push(currPerson);
+          }
+        });
+
+        // create HTML content
         var content = $('<div />')
-        for (var i = 0; i < group.length - 1; i++) {
-            if (group[i] in ci)
-                content.append($('<span />').css('color', ci[group[i]]).text(group[i] + ", "))
-            else
-                content.append($('<span />').text(group[i] + ", "))
+        var isFirstGroup = true;
+
+        for (var colorKey in colorGroups) {
+          // add each group member with color styling
+          if (colorGroups.hasOwnProperty(colorKey) && colorGroups[colorKey].length > 0) {
+            var currPeople = colorGroups[colorKey];
+            var currPeopleText = currPeople.join(', ');
+
+            // check if | should be added
+            if (!isFirstGroup) {
+              content.append(' | ');
+            } else {
+              isFirstGroup = false;
+            }
+
+            content.append($('<span />').css('color', colorKey).text(currPeopleText));
+          }
         }
-        if (group[group.length - 1] in ci)
-            content.append($('<span />').css('color', ci[group[group.length - 1]]).text(group[group.length - 1]))
-        else
-            content.append($('<span />').text(group[group.length - 1]))
+
+        // add context to html element
         ele.html(content)
     }
 
     // Assign a color to each pref and create an index
-    function assignColors(prefs) {
-        // assumes no more than colors.length number of prefs
-        var colors = [
+    var colors = [
             '#e41a1c',
             '#377eb8',
             '#4daf4a',
@@ -167,19 +239,34 @@ $(function() {
             '#a65628',
             '#f781bf',
             '#999999'
-        ];
+    ];
+    var defaultColor = '#454545';
 
-        var colorIndex = {};
-        colors = colors.slice(0, prefs.length);
+    function assignColors(prefs) {
+        var colorIndexDict = {};
+        var colorIndex = 0;
 
+        // iterate over preferences and assign colors
         for (var i = 0; i < prefs.length; i++) {
+            // get list of people in the group
             var people = prefs[i].split(",");
 
+            // figure out what color to use for the group
+            var groupColor = '';
+            if (colorIndex < colors.length) {
+              groupColor = colors[colorIndex];
+              colorIndex++;
+            } else {
+              groupColor = defaultColor;
+            }
+
+            // set color for each person in group
             for (var j = 0; j < people.length; j++) {
-                colorIndex[people[j]] = colors[i];
+                colorIndexDict[people[j]] = groupColor;
             }
         }
-        return colorIndex;
+
+        return colorIndexDict;
     }
 
     // Form 2 groups that satisfy hard preferences to stay together
