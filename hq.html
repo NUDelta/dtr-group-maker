@@ -1,125 +1,71 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>HQ select</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-		<link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/stylesheet.css">
-		<!--[if IE 8]><script src="js/es5.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/selectize.js"></script>
-		<script src="js/index.js"></script>
-		<script src="js/hq.js"></script>
-	</head>
-    <body>
-      <div id="wrapper">
-	<h1>DTR Group Maker</h1>
-	
-	<div class="demo">
-	  <h3>Pair Research Pairings</h3>
-	  <div class="control-group" style="display:inline-block">
-	    <input type="text" style="display:inline-block" id="pair-tags" class="demo-default" value="">
-	  </div>
-	  <div class="control-group" style="display:inline-block">
+<html>
+<head>
+   <title>DTR LIP Group Maker</title>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+   <link rel="stylesheet" href="css/lib/normalize.css">
+   <link rel="stylesheet" href="css/lib/selectize.default.css">
+   <link rel="stylesheet" href="css/stylesheet.css">
+
+   <script src="js/lib/jquery.min.js"></script>
+   <script src="js/lib/selectize.js"></script>
+   <script src="js/hq.js"></script>
+</head>
+
+<body>
+   <div id="wrapper">
+      <h1>DTR Group Maker</h1>
+
+      <!-- Data Entry for Partitioning Algorithm -->
+      <div class="demo">
+         <h3>Pair Research Pairings</h3>
+         <div class="control-group" style="display:inline-block">
+            <input type="text" style="display:inline-block" id="pair-tags" class="demo-default" value="">
+         </div>
+         <div class="control-group" style="display:inline-block">
             <input type="button" id="addPair" value="add em">
-	  </div>
-	  <div class="results">
-	    <h2>Pairings (make sure to include singles)<span id="undoPair" class="undo">remove last</span></h2>	    
-	    <div id="pairResults">
+         </div>
+         <div class="results">
+            <h2>Pairings (make sure to include singles)<span id="undoPair" class="undo">remove last</span></h2>
+            <div id="pairResults">
             </div>
-	  </div>
-	  <br/><br/>
-	  
-	  <h3>LIP Groupings</h3>
-	  <div class="control-group" style="display:inline-block">
-	    <input type="text" style="display:inline-block" id="lip-tags" class="demo-default" value="">
-	  </div>
-	  <div class="control-group" style="display:inline-block">
+         </div>
+         <br/><br/>
+
+         <h3>LIP Groupings</h3>
+         <div class="control-group" style="display:inline-block">
+            <input type="text" style="display:inline-block" id="lip-tags" class="demo-default" value="">
+         </div>
+         <div class="control-group" style="display:inline-block">
             <input type="button" id="addLip" value="add em">
-	  </div>
-	  
-	  <div class="results">
-	    <h2>LIP Groups (no need to include singles)<span id="undoGroup" class="undo">remove last</span></h2>
-	    <div id="lipGroups">
-	    </div>
-	  </div>
-	  <br/><br/>
-
-	  <div class="control-group">
+         </div>
+         <div class="results">
+            <h2>LIP Groups (no need to include singles)<span id="undoGroup" class="undo">remove last</span></h2>
+            <div id="lipGroups">
+            </div>
+         </div>
+         <br/><br/>
+         <div class="control-group">
             <input type="button" id="computeGroups" class="actionButton" value="Make Groups">
-	  </div>
-        </div>
-	<br/>
-	 
-	<h3>Groups for Studio</h3>
-	<div class="row" id="studioGroups">
-	  <div class="col-sm-6">
-	    <h2>Group A: </h2>
-	    <div id="groupA"></div>
-	  </div>
-	  <div class="col-sm-6">
-	    <h2>Group B: </h2>
-	    <div id="groupB"></div>
-	  </div>
-	</div>
-	
-
-
-	  <script>
-	    var pairList = [];
-	    var lipList = [];
-	    var candidateList = [];
-	    var people = [
-	    {text:'Leesha',value:'Leesha'},
-	    {text:'Ryan L',value:'Ryan L'},
-//	    {text:'Ryan J',value:'Ryan J'},
-	    {text:'Yongsung',value:'Yongsung'},
-	    {text:'Kapil',value:'Kapil'},
-	    {text:'Andrew',value:'Andrew'},
-	    {text:'Maggie',value:'Maggie'},
-	    {text:'Victoria',value:'Victoria'},
-	    {text:'Shanks',value:'Shanks'},
-	    {text:'Gobi',value:'Gobi'},
-	    {text:'Suzy',value:'Suzy'},
-	    {text:'Garrett',value:'Garrett'},
-//	    {text:'Matthew',value:'Matthew'},
-	    {text:'Sanfeng',value:'Sanfeng'},
-	    {text:'Gabriel',value:'Gabriel'},
-	    {text:'Mary',value:'Mary'},
-	    {text:'Richard',value:'Richard'},
-	    {text:'Navin',value:'Navin'},
-	    {text:'Maxine',value:'Maxine'},
-	    {text:'Judy',value:'Judy'},
-	    {text:'Caryl',value:'Caryl'},
-	    {text:'Daniel',value:'Daniel'},
-	    {text:'Josh',value:'Josh'},
-	    {text:'Cooper',value:'Cooper'}
-	    ];
-	    
-	    
-	    $('#pair-tags').selectize({
-	    persist: false,
-	    createOnBlur: true,
-	    create: false,
-	    options: people
-	    });
-
-	    $('#lip-tags').selectize({
-	    persist: false,
-	    createOnBlur: true,
-	    create: false,
-	    options: people
-	    });
-
-	    
-	  </script>
+         </div>
       </div>
-</div>
+
+      <!-- Display of Partitions -->
+      <h3>Groups for Studio</h3>
+      <div class="row" id="studioGroups">
+         <div class="col-sm-6">
+            <h2>Group A: </h2>
+            <div id="groupA"></div>
+         </div>
+         <div class="col-sm-6">
+            <h2>Group B: </h2>
+            <div id="groupB"></div>
+         </div>
+      </div>
+   </div>
 </body>
 </html>
