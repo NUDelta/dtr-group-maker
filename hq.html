@@ -17,56 +17,56 @@
 </head>
 
 <body>
-   <div id="wrapper">
-      <h1>DTR Group Maker</h1>
+<div id="wrapper">
+   <h1>DTR Group Maker</h1>
 
-      <!-- Data Entry for Partitioning Algorithm -->
-      <div class="demo">
-         <h3>Pair Research Pairings</h3>
-         <div class="control-group" style="display:inline-block">
-            <input type="text" style="display:inline-block" id="pair-tags" class="demo-default" value="">
-         </div>
-         <div class="control-group" style="display:inline-block">
-            <input type="button" id="addPair" value="add em">
-         </div>
-         <div class="results">
-            <h2>Pairings (make sure to include singles)<span id="undoPair" class="undo">remove last</span></h2>
-            <div id="pairResults">
-            </div>
-         </div>
-         <br/><br/>
-
-         <h3>LIP Groupings</h3>
-         <div class="control-group" style="display:inline-block">
-            <input type="text" style="display:inline-block" id="lip-tags" class="demo-default" value="">
-         </div>
-         <div class="control-group" style="display:inline-block">
-            <input type="button" id="addLip" value="add em">
-         </div>
-         <div class="results">
-            <h2>LIP Groups (no need to include singles)<span id="undoGroup" class="undo">remove last</span></h2>
-            <div id="lipGroups">
-            </div>
-         </div>
-         <br/><br/>
-         <div class="control-group">
-            <input type="button" id="computeGroups" class="actionButton" value="Make Groups">
+   <!-- Data Entry for Partitioning Algorithm -->
+   <div class="demo">
+      <h3>Pair Research Pairings</h3>
+      <div class="control-group" style="display:inline-block">
+         <input type="text" style="display:inline-block" id="pair-tags" class="demo-default" value="">
+      </div>
+      <div class="control-group" style="display:inline-block">
+         <input type="button" id="addPair" value="add em">
+      </div>
+      <div class="results">
+         <h2>Pairings (make sure to include singles)<span id="undoPair" class="undo">remove last</span></h2>
+         <div id="pairResults">
          </div>
       </div>
+      <br/><br/>
 
-      <!-- Display of Partitions -->
-      <h3>Groups for Studio</h3>
-      <div class="row" id="studioGroups">
-         <div class="col-sm-6">
-            <h2>Group A: </h2>
-            <div id="groupA"></div>
+      <h3>LIP Groupings</h3>
+      <div class="control-group" style="display:inline-block">
+         <input type="text" style="display:inline-block" id="lip-tags" class="demo-default" value="">
+      </div>
+      <div class="control-group" style="display:inline-block">
+         <input type="button" id="addLip" value="add em">
+      </div>
+      <div class="results">
+         <h2>LIP Groups (no need to include singles)<span id="undoGroup" class="undo">remove last</span></h2>
+         <div id="lipGroups">
          </div>
-         <br>
-         <div class="col-sm-6">
-            <h2>Group B: </h2>
-            <div id="groupB"></div>
-         </div>
+      </div>
+      <br/><br/>
+      <div class="control-group">
+         <input type="button" id="computeGroups" class="actionButton" value="Make Groups">
       </div>
    </div>
+
+   <!-- Display of Partitions -->
+   <h3>Groups for Studio</h3>
+   <div class="row" id="studioGroups">
+      <div class="col-sm-6">
+         <h2>Group A: </h2>
+         <div id="groupA"></div>
+      </div>
+      <br>
+      <div class="col-sm-6">
+         <h2>Group B: </h2>
+         <div id="groupB"></div>
+      </div>
+   </div>
+</div>
 </body>
 </html>
