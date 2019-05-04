@@ -155,6 +155,7 @@ $(function() {
     // get colors for each lip
     const colorIndex = assignColors(lipList);
     if (candidateList.length > 0) {
+      // TODO: can prefer more even partitions here. currently doesn't
       displayGroup($("#groupA"), candidateList[0][0], colorIndex);
       displayGroup($("#groupB"), candidateList[0][1], colorIndex)
     }
@@ -337,6 +338,7 @@ $(function() {
       var total = 0;
       for (let i = 0; i < prefs.length; i++){
 	  switch (prefs[i].split(',').length){
+	      case 1: total += 1; break; // I think this is just how we count
 	      case 2: total += 1; break;
 	      case 3: total += 3; break;
 	      case 4: total += 6; break;
