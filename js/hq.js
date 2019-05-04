@@ -313,7 +313,7 @@ $(function() {
     // look for all subsets of roughly equal size
     let rightLength = Math.floor(people.length / 2);
     const goodPartitions = [];
-
+     
     // get all subsets that perfectly respect prefs to stay together, e.g., each pref is in set A or B.
     for (let i = 0; i < allSubsets.length; i++) {
       if (allSubsets[i].length === rightLength ||
@@ -323,7 +323,7 @@ $(function() {
         let candidate = [allSubsets[i], people.diff(allSubsets[i])];
         let totalRespect = computeScore(candidate, prefs);
 
-        if (totalRespect === prefs.length) {
+        if (totalRespect === numPrefs(prefs)){
           goodPartitions.push(candidate);
         }
       }
@@ -331,6 +331,10 @@ $(function() {
     return goodPartitions;
   }
 
+  function numPrefs(prefs){
+      // TODO: this function would need to be generalizied to handled non-pairwise preferences (e.g., [a,b,c] is actually [a,b],[b,c], and [a,c]). To be robust we would also have to handle duplicates across the preference list.
+      return prefs.length;
+  }
 
   // counts how many of the prefs to be grouped together are
   // met by this grouping
