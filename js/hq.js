@@ -332,8 +332,17 @@ $(function() {
   }
 
   function numPrefs(prefs){
-      // TODO: this function would need to be generalizied to handled non-pairwise preferences (e.g., [a,b,c] is actually [a,b],[b,c], and [a,c]). To be robust we would also have to handle duplicates across the preference list.
-      return prefs.length;
+      // prefs: ["a,b","c,d,e"] => 4 (1 + 3, since [a,b,c] is actually [a,b],[b,c], and [a,c]). 
+      // TODO: doesn't handle duplicates across the preference list.
+      var total = 0;
+      for (let i = 0; i < prefs.length; i++){
+	  switch (prefs[i].split(',').length){
+	      case 2: total += 1; break;
+	      case 3: total += 3; break;
+	      case 4: total += 6; break;
+	  }
+      }
+      return total;
   }
 
   // counts how many of the prefs to be grouped together are
