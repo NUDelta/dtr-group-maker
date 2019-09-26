@@ -17,30 +17,25 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: S2019
+    Updated last: F2019
    */
   const peopleList = [
+    'Yongsung',
     'Leesha',
     'Ryan L',
-    'Yongsung',
-    'Kapil',
-    'Andrew',
-    'Victoria',
-    'Shanks',
     'Gobi',
-    'Suzy',
+    'Kapil',
+    'Harrison',
     'Garrett',
-    'Sanfeng',
-    'Gabriel',
-    'Mary',
-    'Richard',
-    'Navin',
-    'Maxine',
-    'Judy',
-    'Caryl',
+    'Shanks',
     'Daniel',
-    'Josh',
-    'Cooper'
+    'Maxine',
+    'Salome',
+    'Cooper',
+    'Abizar',
+    'Gabriel',
+    'Caryl',
+    'Josh K'
   ];
 
   const peopleOptions = peopleList.map(x => ({
@@ -314,7 +309,7 @@ $(function() {
     // look for all subsets of roughly equal size
     let rightLength = Math.floor(people.length / 2);
     const goodPartitions = [];
-     
+
     // get all subsets that perfectly respect prefs to stay together, e.g., each pref is in set A or B.
     for (let i = 0; i < allSubsets.length; i++) {
       if (allSubsets[i].length === rightLength ||
@@ -333,7 +328,7 @@ $(function() {
   }
 
   function numPrefs(prefs){
-      // prefs: ["a,b","c,d,e"] => 4 (1 + 3, since [a,b,c] is actually [a,b],[b,c], and [a,c]). 
+      // prefs: ["a,b","c,d,e"] => 4 (1 + 3, since [a,b,c] is actually [a,b],[b,c], and [a,c]).
       // TODO: doesn't handle duplicates across the preference list.
       var total = 0;
       for (let i = 0; i < prefs.length; i++){
