@@ -17,7 +17,7 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: F2019
+    Updated last: W2020
    */
   const peopleList = [
     'Yongsung',
@@ -28,14 +28,19 @@ $(function() {
     'Harrison',
     'Garrett',
     'Shanks',
-    'Daniel',
+    'Olivia',
+    'Zev',
     'Maxine',
     'Salome',
     'Cooper',
     'Abizar',
-    'Gabriel',
+    'David',
+    'Nina',
+    'Mary',
+    'Amy',
     'Caryl',
-    'Josh K'
+    'Josh K',
+    'Vishal'
   ];
 
   const peopleOptions = peopleList.map(x => ({
