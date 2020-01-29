@@ -82,18 +82,35 @@ $(function() {
 
     const currPairTags = $pairTags.val();
 
-
     // check if not blank
     if (currPairTags !== '') {
-      // add to pairResults div
-      $pairResults.append($('<span />').text(replaceAll(currPairTags, ',', ', ')));
-      $pairResults.append('<br/>');
-
-      // store information for partitioning later on
-      pairList.push(currPairTags);
+      addPair($pairResults, currPairTags);
       $pairTags[0].selectize.clear();
     }
   });
+
+  // add all teams
+  $('#addTeams').on("click", function(e) {
+    const $pairResults = $('#pairResults');
+
+    // iterate through teams and add each of them
+    teamsList.forEach(currTeam => {
+      // construct tuple from team array
+      let currTeamTuple = currTeam.join(',');
+
+      // add pair
+      addPair($pairResults, currTeamTuple);
+    });
+  });
+
+  function addPair(uiEle, currPairTags) {
+    // add to pairResults div
+    uiEle.append($('<span />').text(replaceAll(currPairTags, ',', ', ')));
+    uiEle.append('<br/>');
+
+    // store information for partitioning later on
+    pairList.push(currPairTags);
+  }
 
   // undo last add to pairing list
   $('#undoPair').on("click", function(e) {
@@ -110,26 +127,6 @@ $(function() {
     }
   });
 
-  // add all teams
-  $('#addTeams').on("click", function(e) {
-    const $pairResults = $('#pairResults');
-
-    // check if teams were already added
-
-    // iterate through teams and add each of them
-    teamsList.forEach(currTeam => {
-      // construct tuple from team array
-      let currTeamTuple = currTeam.join(',');
-
-      // add pair to UI
-      $pairResults.append($('<span />').text(replaceAll(currTeamTuple, ',', ', ')));
-      $pairResults.append('<br/>');
-
-      // add pair to internal pairList for later partitioning
-      pairList.push(currTeamTuple);
-    });
-  });
-
   // add onto list of groupings from LIPs
   $('#addLip').on("click", function(e) {
     const $lipGroups = $('#lipGroups');
@@ -139,24 +136,28 @@ $(function() {
 
     // check if not blank
     if (currLipTags !== '') {
-      // add to lipGroups div with correct color
-      let currLipColor = '';
-      if (lipList.length >= colors.length) {
-        currLipColor = defaultColor;
-      } else {
-        currLipColor = colors[lipList.length];
-      }
-
-      $lipGroups.append($('<span />')
-        .css('color', currLipColor)
-        .text(replaceAll(currLipTags, ',', ', ')));
-      $lipGroups.append('<br/>');
-
-      // store information for partitioning later on
-      lipList.push(currLipTags);
+      addLipGroup($lipGroups, currLipTags);
       $lipTags[0].selectize.clear();
     }
   });
+
+  function addLipGroup(uiEle, currLipTags) {
+    // add to lipGroups div with correct color
+    let currLipColor = '';
+    if (lipList.length >= colors.length) {
+      currLipColor = defaultColor;
+    } else {
+      currLipColor = colors[lipList.length];
+    }
+
+    uiEle.append($('<span />')
+         .css('color', currLipColor)
+         .text(replaceAll(currLipTags, ',', ', ')));
+    uiEle.append('<br/>');
+
+    // store information for partitioning later on
+    lipList.push(currLipTags);
+  }
 
   // undo last add to lip group list
   $('#undoGroup').on("click", function(e) {
@@ -190,7 +191,6 @@ $(function() {
     // get colors for each lip
     const colorIndex = assignColors(lipList);
     if (candidateList.length > 0) {
-      // TODO: can prefer more even partitions here. currently doesn't
       displayGroup($("#groupA"), candidateList[0][0], colorIndex);
       displayGroup($("#groupB"), candidateList[0][1], colorIndex)
     }
@@ -198,10 +198,6 @@ $(function() {
     $([document.documentElement, document.body]).animate({
       scrollTop: $("#studioGroups").offset().top
     }, 2000);
-
-    console.log("we have ", candidateList.length, " candidates");
-    for (let i = 0; i < candidateList.length; i++)
-      console.log("candidate: " + candidateList[i].join("--"))
   });
 
 
@@ -325,14 +321,33 @@ $(function() {
     console.log('Possible Good Partition Candidates:');
     console.log(goodCandidates);
 
+    // make sure Group A is always larger if difference in size and display
+    console.log(`we have ${ goodCandidates.length } good candidates.`);
+    for (let i = 0; i < goodCandidates.length; i++) {
+      // compare sizes
+      if (goodCandidates[i][1].length > goodCandidates[i][0].length) {
+        goodCandidates[i] = [[...goodCandidates[i][1]], [...goodCandidates[i][0]]];
+      }
+
+      console.log(`Candidate ${ i + 1 } (${ computeScore(goodCandidates[i], hardPrefs) } Hard Pref Respected; ${ computeScore(goodCandidates[i], softPrefs) } Soft Pref Respected)
+      Group A (${ goodCandidates[i][0].length } people): ${ goodCandidates[i][0].join(', ') }
+      Group B (${ goodCandidates[i][1].length } people): ${ goodCandidates[i][1].join(', ') } \n`)
+    }
+
+    // [Group A, Group B] = ["A, B, C", "D, E, F"]
     return goodCandidates
   }
 
   function computeGoodSoftPartitions(candidates, prefs) {
     // candidates: [[groupA, groupB], ...]
     // prefs: ["a,b","c,d,e"]
+
+    // sorting criteria
+    // 1. number of soft constraints respected
+    // 2. evenness of size between groups (same size is best)
     return candidates.sort(function(a, b) {
-      return computeScore(b, prefs) - computeScore(a, prefs)
+      return (computeScore(b, prefs) - computeScore(a, prefs)) ||
+        (Math.abs(a[0].length - a[1].length) - Math.abs(b[0].length - b[1].length));
     })
   }
 
@@ -423,4 +438,53 @@ $(function() {
     });
     return [...s];
   }
+
+  /*
+   TESTING CODE
+   */
+  const testHard = [
+    ['Olivia', 'Zev'],
+    ['David', 'Nina'],
+    ['Mary', 'Amy'],
+    ['Caryl', 'Josh'],
+    ['David', 'Garrett'],
+    ['Vishal', 'Mary'],
+    ['Zev', 'Salome'],
+    ['Amy', 'Caryl'],
+    ['Gobi', 'Josh K'],
+    ['Abizar', 'Shanks'],
+    ['Kapil', 'Nina'],
+    ['Olivia', 'Maxine'],
+    ['Ryan L'],
+    ['Leesha']
+  ];
+
+  const testSoft = [
+    ['Kapil', 'David', 'Nina', 'Mary', 'Amy'],
+    ['Ryan L', 'Leesha', 'Garrett', 'Shanks'],
+    ['Abizar', 'Zev', 'Salome']
+  ];
+
+  // add all teams
+  $('#addTesting').on("click", function(e) {
+    // iterate through each hard constraint and add each of them
+    const $pairResults = $('#pairResults');
+    testHard.forEach(currHard => {
+      // construct tuple from team array
+      let currHardTuple = currHard.join(',');
+
+      // add pair
+      addPair($pairResults, currHardTuple);
+    });
+
+    // iterate through each soft constraint and add each of them
+    const $lipGroups = $('#lipGroups');
+    testSoft.forEach(currSoft => {
+      // construct tuple from team array
+      let currSoftTuple = currSoft.join(',');
+
+      // add pair
+      addLipGroup($lipGroups, currSoftTuple);
+    });
+  });
 });
