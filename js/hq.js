@@ -339,7 +339,7 @@ $(function() {
         goodCandidates[i] = [[...goodCandidates[i][1]], [...goodCandidates[i][0]]];
       }
 
-      console.log(`Candidate ${ i + 1 } (${ computeScore(goodCandidates[i], hardPrefs) } Hard Pref Respected; ${ computeScore(goodCandidates[i], softPrefs) } Soft Pref Respected)
+      console.log(`Candidate ${ i + 1 } (${ computeScore(goodCandidates[i], hardPrefs) } / ${ numPrefs(hardPrefs) } Hard Pref Respected; ${ computeScore(goodCandidates[i], softPrefs) } / ${ numPrefs(softPrefs) } Soft Pref Respected)
       Group A (${ goodCandidates[i][0].length } people; ${ numPhdStudents(goodCandidates[i][0]) } PhD students): ${ goodCandidates[i][0].join(', ') }
       Group B (${ goodCandidates[i][1].length } people; ${ numPhdStudents(goodCandidates[i][1]) } PhD students): ${ goodCandidates[i][1].join(', ') } \n`)
     }
@@ -407,17 +407,30 @@ $(function() {
 
   function numPrefs(prefs){
       // prefs: ["a,b","c,d,e"] => 4 (1 + 3, since [a,b,c] is actually [a,b],[b,c], and [a,c]).
+
       // TODO: doesn't handle duplicates across the preference list.
       let total = 0;
-      for (let i = 0; i < prefs.length; i++){
-        switch (prefs[i].split(',').length){
-            case 1: total += 1; break; // I think this is just how we count
-            case 2: total += 1; break;
-            case 3: total += 3; break;
-            case 4: total += 6; break;
+      for (let i = 0; i < prefs.length; i++) {
+        // compute number of unique combinations without order and repetition
+        let n = prefs[i].split(',').length;
+        let r = 2;
+
+        if (n === 1) {
+          total += 1;
+        } else {
+          total += factorial(n) / (factorial(r) * factorial(n - r));
         }
       }
       return total;
+  }
+
+  function factorial(num) {
+    let rval = 1;
+    for (let i = 2; i <= num; i++) {
+      rval = rval * i;
+    }
+
+    return rval;
   }
 
   // counts how many of the prefs to be grouped together are
