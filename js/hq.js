@@ -43,6 +43,13 @@ $(function() {
     'Vishal'
   ];
 
+  const teamsList = [
+    ['Olivia', 'Zev'],
+    ['David', 'Nina'],
+    ['Mary', 'Amy'],
+    ['Caryl', 'Josh']
+  ];
+
   const peopleOptions = peopleList.map(x => ({
     'text': x,
     'value': x
@@ -70,39 +77,65 @@ $(function() {
 
   // add onto list of pairings from pair research
   $('#addPair').on("click", function(e) {
-    const currPairTags = $('#pair-tags').val();
+    const $pairResults = $('#pairResults');
+    const $pairTags = $('#pair-tags');
+
+    const currPairTags = $pairTags.val();
+
 
     // check if not blank
     if (currPairTags !== '') {
       // add to pairResults div
-      $('#pairResults').append($('<span />')
-        .text(replaceAll(currPairTags, ',', ', ')));
-      $('#pairResults').append('<br/>');
+      $pairResults.append($('<span />').text(replaceAll(currPairTags, ',', ', ')));
+      $pairResults.append('<br/>');
 
       // store information for partitioning later on
       pairList.push(currPairTags);
-      $("#pair-tags")[0].selectize.clear();
+      $pairTags[0].selectize.clear();
     }
   });
 
   // undo last add to pairing list
   $('#undoPair').on("click", function(e) {
+    const $pairResults = $('#pairResults');
+
     // remove from paritioning data
     pairList.pop();
 
     // remove from UI
-    $('#pairResults').text("");
+    $pairResults.text("");
     for (let i = 0; i < pairList.length; i++) {
-      $('#pairResults').append($('<span />')
-        .text(replaceAll(pairList[i], ',', ', ')));
-      $('#pairResults').append('<br/>');
+      $pairResults.append($('<span />').text(replaceAll(pairList[i], ',', ', ')));
+      $pairResults.append('<br/>');
     }
   });
 
+  // add all teams
+  $('#addTeams').on("click", function(e) {
+    const $pairResults = $('#pairResults');
+
+    // check if teams were already added
+
+    // iterate through teams and add each of them
+    teamsList.forEach(currTeam => {
+      // construct tuple from team array
+      let currTeamTuple = currTeam.join(',');
+
+      // add pair to UI
+      $pairResults.append($('<span />').text(replaceAll(currTeamTuple, ',', ', ')));
+      $pairResults.append('<br/>');
+
+      // add pair to internal pairList for later partitioning
+      pairList.push(currTeamTuple);
+    });
+  });
 
   // add onto list of groupings from LIPs
   $('#addLip').on("click", function(e) {
-    const currLipTags = $('#lip-tags').val();
+    const $lipGroups = $('#lipGroups');
+    const $lipTags = $('#lip-tags');
+
+    const currLipTags = $lipTags.val();
 
     // check if not blank
     if (currLipTags !== '') {
@@ -114,24 +147,26 @@ $(function() {
         currLipColor = colors[lipList.length];
       }
 
-      $('#lipGroups').append($('<span />')
+      $lipGroups.append($('<span />')
         .css('color', currLipColor)
         .text(replaceAll(currLipTags, ',', ', ')));
-      $('#lipGroups').append('<br/>');
+      $lipGroups.append('<br/>');
 
       // store information for partitioning later on
       lipList.push(currLipTags);
-      $("#lip-tags")[0].selectize.clear();
+      $lipTags[0].selectize.clear();
     }
   });
 
   // undo last add to lip group list
   $('#undoGroup').on("click", function(e) {
+    const $lipGroups = $('#lipGroups');
+
     // remove from partitioning data
     lipList.pop();
 
     // remove from UI
-    $('#lipGroups').text("");
+    $lipGroups.text("");
     for (let i = 0; i < lipList.length; i++) {
       let currLipColor = '';
       if (i >= colors.length) {
@@ -140,10 +175,10 @@ $(function() {
         currLipColor = colors[i];
       }
 
-      $('#lipGroups').append($('<span />')
+      $lipGroups.append($('<span />')
         .css('color', currLipColor)
         .text(replaceAll(lipList[i], ',', ', ')));
-      $('#lipGroups').append('<br/>');
+      $lipGroups.append('<br/>');
     }
   });
 
@@ -335,14 +370,14 @@ $(function() {
   function numPrefs(prefs){
       // prefs: ["a,b","c,d,e"] => 4 (1 + 3, since [a,b,c] is actually [a,b],[b,c], and [a,c]).
       // TODO: doesn't handle duplicates across the preference list.
-      var total = 0;
+      let total = 0;
       for (let i = 0; i < prefs.length; i++){
-	  switch (prefs[i].split(',').length){
-	      case 1: total += 1; break; // I think this is just how we count
-	      case 2: total += 1; break;
-	      case 3: total += 3; break;
-	      case 4: total += 6; break;
-	  }
+        switch (prefs[i].split(',').length){
+            case 1: total += 1; break; // I think this is just how we count
+            case 2: total += 1; break;
+            case 3: total += 3; break;
+            case 4: total += 6; break;
+        }
       }
       return total;
   }
