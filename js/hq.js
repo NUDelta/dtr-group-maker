@@ -43,6 +43,16 @@ $(function() {
     'Vishal'
   ];
 
+  const phdStudents = new Set([
+    'Yongsung',
+    'Leesha',
+    'Ryan L',
+    'Gobi',
+    'Kapil',
+    'Harrison',
+    'Garrett'
+  ]);
+
   const teamsList = [
     ['Olivia', 'Zev'],
     ['David', 'Nina'],
@@ -330,8 +340,8 @@ $(function() {
       }
 
       console.log(`Candidate ${ i + 1 } (${ computeScore(goodCandidates[i], hardPrefs) } Hard Pref Respected; ${ computeScore(goodCandidates[i], softPrefs) } Soft Pref Respected)
-      Group A (${ goodCandidates[i][0].length } people): ${ goodCandidates[i][0].join(', ') }
-      Group B (${ goodCandidates[i][1].length } people): ${ goodCandidates[i][1].join(', ') } \n`)
+      Group A (${ goodCandidates[i][0].length } people; ${ numPhdStudents(goodCandidates[i][0]) } PhD students): ${ goodCandidates[i][0].join(', ') }
+      Group B (${ goodCandidates[i][1].length } people; ${ numPhdStudents(goodCandidates[i][1]) } PhD students): ${ goodCandidates[i][1].join(', ') } \n`)
     }
 
     // [Group A, Group B] = ["A, B, C", "D, E, F"]
@@ -345,10 +355,23 @@ $(function() {
     // sorting criteria
     // 1. number of soft constraints respected
     // 2. evenness of size between groups (same size is best)
+    // 3. evenness of number of PhD students (same is better)
     return candidates.sort(function(a, b) {
       return (computeScore(b, prefs) - computeScore(a, prefs)) ||
-        (Math.abs(a[0].length - a[1].length) - Math.abs(b[0].length - b[1].length));
+        (Math.abs(a[0].length - a[1].length) - Math.abs(b[0].length - b[1].length)) ||
+        (Math.abs(numPhdStudents(a[0]) - numPhdStudents(a[1])) - Math.abs(numPhdStudents(b[0]) - numPhdStudents(b[1])));
     })
+  }
+
+  function numPhdStudents(group) {
+    let phdStudentCount = 0;
+    group.forEach(groupMember => {
+      if (phdStudents.has(groupMember)) {
+        phdStudentCount++
+      }
+    });
+
+    return phdStudentCount;
   }
 
   function computeScore(c1, prefs) {
