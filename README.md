@@ -6,8 +6,9 @@ During [DTR](http://dtr.northwestern.edu) Studio Meetings, to give mentors more 
 - Group B works on [Pair Research](http://pairresearch.io) in the first hour, and [LIPs](https://docs.google.com/presentation/d/1HyF1nBkCXPEkq6xRES_pJXdHECz0Y1NzOQSDPF1WtaY/edit?usp=sharing) in the second hour.
 
 This tool helps us make these two groups by:
-- Respecting all pair research matchings, so that students who are paired will always be in the same group.
+- Respecting all Pair Research matchings and project teams, so that students who are paired will always be in the same group and project teams will be able to work together during LIP.
 - Preferring all LIP groups, so that students working on the same LIP are put in the same group whenever possible.
+- Attempt to keep the size of each group even
 
 The tool does this by computing all near-even partitions and identifies candidate partitions that fully respects pair researching matches and prefers LIP groupings as able.
 
