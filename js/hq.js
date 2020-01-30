@@ -202,7 +202,10 @@ $(function() {
     const colorIndex = assignColors(lipList);
     if (candidateList.length > 0) {
       displayGroup($("#groupA"), candidateList[0][0], colorIndex);
-      displayGroup($("#groupB"), candidateList[0][1], colorIndex)
+      $('#groupA-header').text(`Group A (${ candidateList[0][0].length } people; ${ numPhdStudents(candidateList[0][0]) } PhD students):`);
+
+      displayGroup($("#groupB"), candidateList[0][1], colorIndex);
+      $('#groupB-header').text(`Group B (${ candidateList[0][1].length } people; ${ numPhdStudents(candidateList[0][1]) } PhD students):`);
     }
 
     $([document.documentElement, document.body]).animate({
@@ -344,7 +347,7 @@ $(function() {
       Group B (${ goodCandidates[i][1].length } people; ${ numPhdStudents(goodCandidates[i][1]) } PhD students): ${ goodCandidates[i][1].join(', ') } \n`)
     }
 
-    // [Group A, Group B] = ["A, B, C", "D, E, F"]
+    // [Group A, Group B] = ["A, B, C", "D, E"] (Group A is always larger)
     return goodCandidates
   }
 
