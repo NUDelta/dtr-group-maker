@@ -57,7 +57,7 @@ $(function() {
     ['Olivia', 'Zev'],
     ['David', 'Nina'],
     ['Mary', 'Amy'],
-    ['Caryl', 'Josh']
+    ['Caryl', 'Josh K']
   ];
 
   const peopleOptions = peopleList.map(x => ({
