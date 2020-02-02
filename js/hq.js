@@ -485,7 +485,7 @@ $(function() {
     ['Olivia', 'Zev'],
     ['David', 'Nina'],
     ['Mary', 'Amy'],
-    ['Caryl', 'Josh'],
+    ['Caryl', 'Josh K'],
     ['David', 'Garrett'],
     ['Vishal', 'Mary'],
     ['Zev', 'Salome'],
