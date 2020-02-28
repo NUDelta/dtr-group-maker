@@ -114,27 +114,49 @@ $(function() {
   });
 
   function addPair(uiEle, currPairTags) {
-    // add to pairResults div
-    uiEle.append($('<span />').text(replaceAll(currPairTags, ',', ', ')));
-    uiEle.append('<br/>');
-
     // store information for partitioning later on
     pairList.push(currPairTags);
+
+    // get index of added element
+    let index = pairList.length - 1;
+
+    // add to pairResults div
+    let newEle = `<div><i class="fas fa-times remove-group" id="pairing-${ index }"></i> ${ replaceAll(currPairTags, ',', ', ') } </div>`;
+    uiEle.append(newEle);
+  }
+
+  function addAllPairs() {
+    // get pairing element
+    const $pairResults = $('#pairResults');
+
+    // add all pairs in pair list
+    $pairResults.text("");
+    for (let i = 0; i < pairList.length; i++) {
+      let newEle = `<div><i class="fas fa-times remove-group" id="pairing-${ i }"></i> ${ replaceAll(pairList[i], ',', ', ') } </div>`;
+      $pairResults.append(newEle);
+    }
   }
 
   // undo last add to pairing list
   $('#undoPair').on("click", function(e) {
-    const $pairResults = $('#pairResults');
-
-    // remove from paritioning data
+    // remove from pairing data
     pairList.pop();
 
-    // remove from UI
-    $pairResults.text("");
-    for (let i = 0; i < pairList.length; i++) {
-      $pairResults.append($('<span />').text(replaceAll(pairList[i], ',', ', ')));
-      $pairResults.append('<br/>');
-    }
+    // update UI after removal
+    addAllPairs();
+  });
+
+  // remove pair that gets clicked on
+  $('body').on('click', 'i[id^="pairing-"]', function (e) {
+    // get the id of element and index of pairing
+    let targetId = e.target.id;
+    let targetIndex = targetId.split('-')[1];
+
+    // remove the pairing from the pair list
+    pairList.splice(targetIndex, 1);
+
+    // update UI after removal
+    addAllPairs();
   });
 
   // add onto list of groupings from LIPs
@@ -160,23 +182,22 @@ $(function() {
       currLipColor = colors[lipList.length];
     }
 
-    uiEle.append($('<span />')
-         .css('color', currLipColor)
-         .text(replaceAll(currLipTags, ',', ', ')));
-    uiEle.append('<br/>');
-
     // store information for partitioning later on
     lipList.push(currLipTags);
+
+    // get index of added element
+    let index = lipList.length - 1;
+
+    // add group with correct color
+    let newEle = `<div><i class="fas fa-times remove-group" id="lip-${ index }"></i> <span style="color: ${ currLipColor }">${ replaceAll(currLipTags, ',', ', ') }</span></div>`;
+    uiEle.append(newEle);
   }
 
-  // undo last add to lip group list
-  $('#undoGroup').on("click", function(e) {
+  function addAllLipGroups() {
+    // get LIP group element
     const $lipGroups = $('#lipGroups');
 
-    // remove from partitioning data
-    lipList.pop();
-
-    // remove from UI
+    // add all LIP groups in LIP groups list
     $lipGroups.text("");
     for (let i = 0; i < lipList.length; i++) {
       let currLipColor = '';
@@ -186,13 +207,38 @@ $(function() {
         currLipColor = colors[i];
       }
 
-      $lipGroups.append($('<span />')
-        .css('color', currLipColor)
-        .text(replaceAll(lipList[i], ',', ', ')));
-      $lipGroups.append('<br/>');
+      // add back group with correct color
+      let newEle = `<div><i class="fas fa-times remove-group" id="lip-${ i }"></i> <span style="color: ${ currLipColor }">${ replaceAll(lipList[i], ',', ', ') }</span></div>`;
+      $lipGroups.append(newEle);
     }
+  }
+
+  // undo last add to lip group list
+  $('#undoGroup').on("click", function(e) {
+    // remove from LIP group data
+    lipList.pop();
+
+    // update UI after removal
+    addAllLipGroups();
   });
 
+  // remove pair that gets clicked on
+  $('body').on('click', 'i[id^="lip-"]', function (e) {
+    // get the id of element and index of pairing
+    let targetId = e.target.id;
+    let targetIndex = targetId.split('-')[1];
+
+    // remove the pairing from the LIP group list
+    lipList.splice(targetIndex, 1);
+
+    // update UI after removal
+    addAllLipGroups();
+  });
+
+
+  /*
+   * Computing partitions.
+   */
   let candidateList = [];
   $('#computeGroups').on("click", function(e) {
     // compute groups

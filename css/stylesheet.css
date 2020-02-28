@@ -9,6 +9,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+i {
+    font-size: 15px;
+}
+
 a,
 a:visited {
     color: #3fabff;
@@ -61,6 +65,11 @@ p,
 .undo:hover {
     text-decoration: underline;
     background-color: #EFEAEA;
+    cursor: pointer;
+}
+
+.remove-group:hover {
+    color: red;
     cursor: pointer;
 }
 
