@@ -17,7 +17,7 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: W2020
+    Updated last: S2020
    */
   const peopleList = [
     'Yongsung',
@@ -28,19 +28,20 @@ $(function() {
     'Harrison',
     'Garrett',
     'Shanks',
+    'Natalie',
     'Olivia',
     'Zev',
     'Maxine',
     'Salome',
+    'Wungjae',
     'Cooper',
     'Abizar',
     'David',
     'Nina',
     'Mary',
-    'Amy',
-    'Caryl',
-    'Josh K',
-    'Vishal'
+    'Mason',
+    'Tommy',
+    'Kieran'
   ];
 
   const phdStudents = new Set([
