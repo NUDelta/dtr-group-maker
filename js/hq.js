@@ -55,10 +55,11 @@ $(function() {
   ]);
 
   const teamsList = [
+    ['Shanks', 'Natalie'],
     ['Olivia', 'Zev'],
+    ['Maxine', 'Wungjae'],
     ['David', 'Nina'],
-    ['Mary', 'Amy'],
-    ['Caryl', 'Josh K']
+    ['Tommy', 'Kieran']
   ];
 
   const peopleOptions = peopleList.map(x => ({
