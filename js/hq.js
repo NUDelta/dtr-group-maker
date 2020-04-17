@@ -32,11 +32,9 @@ $(function() {
     'Olivia',
     'Zev',
     'Maxine',
-    'Salome',
     'Wungjae',
     'Cooper',
     'Abizar',
-    'David',
     'Nina',
     'Mary',
     'Mason',
@@ -58,7 +56,6 @@ $(function() {
     ['Shanks', 'Natalie'],
     ['Olivia', 'Zev'],
     ['Maxine', 'Wungjae'],
-    ['David', 'Nina'],
     ['Tommy', 'Kieran']
   ];
 
