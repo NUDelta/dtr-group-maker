@@ -17,33 +17,28 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: S2020
+    Updated last: F2020
    */
   const peopleList = [
-    'Yongsung',
     'Leesha',
     'Ryan L',
     'Gobi',
     'Kapil',
     'Harrison',
     'Garrett',
-    'Shanks',
     'Natalie',
+    'Aimee',
     'Olivia',
-    'Zev',
-    'Maxine',
-    'Wungjae',
-    'Cooper',
-    'Abizar',
     'Nina',
-    'Mary',
     'Mason',
+    'Zachary',
+    'Ariella',
+    'Caryl',
     'Tommy',
     'Kieran'
   ];
 
   const phdStudents = new Set([
-    'Yongsung',
     'Leesha',
     'Ryan L',
     'Gobi',
@@ -53,10 +48,10 @@ $(function() {
   ]);
 
   const teamsList = [
-    ['Shanks', 'Natalie'],
-    ['Olivia', 'Zev'],
-    ['Maxine', 'Wungjae'],
-    ['Tommy', 'Kieran']
+    ['Natalie', 'Aimee'],
+    ['Mason', 'Zachary'],
+    ['Ariella', 'Caryl'],
+    ['Tommy', 'Kieran'],
   ];
 
   const peopleOptions = peopleList.map(x => ({
