@@ -2,6 +2,7 @@
 **[Demo](http://users.eecs.northwestern.edu/~hq/dtr-group-maker/hq.html)**
 
 Splits the class into two groups for Pair Research and LIP. Respects Pair Research pairings and project teams, and attempts respect preferred LIP groups. 
+
 <img src="/images/screenshot.png?raw=true" width="400px">
 
 ## Purpose
