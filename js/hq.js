@@ -48,7 +48,7 @@ $(function() {
   ]);
 
   const teamsList = [
-    ['Natalie', 'Aimee'],
+ // ['Natalie', 'Aimee'],
     ['Mason', 'Zachary'],
     ['Ariella', 'Caryl'],
     ['Tommy', 'Kieran'],
