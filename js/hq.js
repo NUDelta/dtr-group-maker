@@ -17,7 +17,7 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: F2020
+    Updated last: F2020 -- Oct 1, 2020
    */
   const peopleList = [
     'Leesha',
@@ -25,8 +25,6 @@ $(function() {
     'Gobi',
     'Kapil',
     'Harrison',
-    'Garrett',
-    'Natalie',
     'Aimee',
     'Olivia',
     'Nina',
@@ -34,7 +32,6 @@ $(function() {
     'Zachary',
     'Ariella',
     'Caryl',
-    'Tommy',
     'Kieran'
   ];
 
@@ -43,15 +40,12 @@ $(function() {
     'Ryan L',
     'Gobi',
     'Kapil',
-    'Harrison',
-    'Garrett'
+    'Harrison'
   ]);
 
   const teamsList = [
- // ['Natalie', 'Aimee'],
     ['Mason', 'Zachary'],
-    ['Ariella', 'Caryl'],
-    ['Tommy', 'Kieran'],
+    ['Ariella', 'Caryl']
   ];
 
   const peopleOptions = peopleList.map(x => ({
