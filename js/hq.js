@@ -361,7 +361,14 @@ $(function() {
     //  console.log("People: " + people)
 
     // get candidate groupings that satisfy pair research matches
-    const candidates = computeGoodHardPartitions(people, hardPrefs);
+    let candidates = computeGoodHardPartitions(people, hardPrefs, true);
+
+    // check if no pairings were returned (i.e., attemptEvenness is too restrictive)
+    if (candidates.length === 0) {
+      console.log('Evenness Constraint Cannot Be Satisfied. ' +
+        'Recomputing Hard Partitions w/o Evenness Constraint...');
+      candidates = computeGoodHardPartitions(people, hardPrefs, false);
+    }
     console.log('Possible Hard Partition Candidates:');
     console.log(candidates);
 
@@ -417,7 +424,7 @@ $(function() {
     return respectCount(c1[0], prefs) + respectCount(c1[1], prefs)
   }
 
-  function computeGoodHardPartitions(people, prefs) {
+  function computeGoodHardPartitions(people, prefs, attemptEvenness) {
     // prefs: ["a,b","c,d,e"]
 
     // make all possible partitions of those people
@@ -427,20 +434,28 @@ $(function() {
     let rightLength = Math.floor(people.length / 2);
     const goodPartitions = [];
 
-    // get all subsets that perfectly respect prefs to stay together, e.g., each pref is in set A or B.
+    // get all subsets that perfectly respect prefs to stay together
+    // e.g., each pref is in set A or B.
     for (let i = 0; i < allSubsets.length; i++) {
-      if (allSubsets[i].length === rightLength ||
-        allSubsets[i].length === rightLength - 1) {
-        // HACK to allow for 4/6 partition and
-        // 5/5 partition to preserve pair research teams
-        let candidate = [allSubsets[i], people.diff(allSubsets[i])];
-        let totalRespect = computeScore(candidate, prefs);
-
-        if (totalRespect === numPrefs(prefs)){
-          goodPartitions.push(candidate);
+      // attempt to keep groups even if attemptEvenness is specified
+      // e.g.: if we have 10 ppl, with attemptEvenness we want partitions to be 5/5 or 4/6 in size
+      if (attemptEvenness) {
+        if (allSubsets[i].length !== rightLength && allSubsets[i].length !== rightLength - 1) {
+          // don't include the partition since it isn't even
+          continue;
         }
       }
+
+      // compute score for partition to check if hard preferences are met
+      let candidate = [allSubsets[i], people.diff(allSubsets[i])];
+      let totalRespect = computeScore(candidate, prefs);
+
+      // include partition in output if hard preferences are met
+      if (totalRespect === numPrefs(prefs)){
+        goodPartitions.push(candidate);
+      }
     }
+
     return goodPartitions;
   }
 
