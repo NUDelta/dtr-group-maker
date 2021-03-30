@@ -32,7 +32,14 @@ $(function() {
     'Nina',
     'Kevin',
     'Mason',
-    'Grace'
+    'Grace',
+    'Roxy',
+    'Ava',
+    'Natalie',
+    'Jonathan',
+    'Jason',
+    'Hang',
+    'Charlotte'
   ];
 
   const phdStudents = new Set([
@@ -47,7 +54,10 @@ $(function() {
     ['Aimee', 'Ariella'],
     ['Neha', 'Molly'],
     ['Nina', 'Kevin'],
-    ['Mason', 'Grace']
+    ['Mason', 'Grace'],
+    ['Roxy', 'Ava'],
+    ['Natalie', 'Jonathan'],
+    ['Jason', 'Hang']
   ];
 
   const peopleOptions = peopleList.map(x => ({
