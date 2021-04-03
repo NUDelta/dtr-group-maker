@@ -35,7 +35,6 @@ $(function() {
     'Grace',
     'Roxy',
     'Ava',
-    'Natalie',
     'Jonathan',
     'Jason',
     'Hang',
@@ -56,7 +55,6 @@ $(function() {
     ['Nina', 'Kevin'],
     ['Mason', 'Grace'],
     ['Roxy', 'Ava'],
-    ['Natalie', 'Jonathan'],
     ['Jason', 'Hang']
   ];
 
