@@ -17,7 +17,7 @@ $(function() {
 
   /*
     Populating DTR students for the quarter.
-    Updated last: W2021 -- Jan 22, 2021
+    Updated last: F2021 -- Sep 23, 2021
    */
   const peopleList = [
     'Leesha',
@@ -29,16 +29,16 @@ $(function() {
     'Ariella',
     'Neha',
     'Molly',
-    'Nina',
-    'Kevin',
-    'Mason',
-    'Grace',
+    'Jenny',
+    'Cindy',
     'Roxy',
-    'Ava',
+    'Fardeem',
+    'Natalie',
     'Jonathan',
     'Jason',
     'Hang',
-    'Charlotte'
+    'Charlotte',
+    'Izzy'
   ];
 
   const phdStudents = new Set([
@@ -52,9 +52,8 @@ $(function() {
   const teamsList = [
     ['Aimee', 'Ariella'],
     ['Neha', 'Molly'],
-    ['Nina', 'Kevin'],
-    ['Mason', 'Grace'],
-    ['Roxy', 'Ava'],
+    ['Roxy', 'Fardeem'],
+    ['Jonathan', 'Natalie'],
     ['Jason', 'Hang']
   ];
 
