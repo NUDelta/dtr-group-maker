@@ -25,21 +25,18 @@ $(function() {
     'Gobi',
     'Kapil',
     'Harrison',
-    'Issac',
     'Molly',
     'Parveen',
     'Richard',
     'Yvan',
     'Cindy',
-    'Roxy',
-    'Fardeem',
-    'Natalie',
+    'Alexandra',
     'Jonathan',
     'Sydney',
     'Jason',
     'Hang',
-    'Izzy',
-    'Justin'
+    'Lauren',
+    'Amy'
   ];
 
   const phdStudents = new Set([
@@ -51,13 +48,9 @@ $(function() {
   ]);
 
   const teamsList = [
-    ['Molly', 'Issac'],
     ['Parveen', 'Richard'],
     ['Yvan', 'Cindy'],
-    ['Roxy', 'Fardeem'],
-    ['Jonathan', 'Natalie'],
-    ['Jason', 'Hang'],
-    ['Izzy', 'Justin']
+    ['Jason', 'Hang']
   ];
 
   const peopleOptions = peopleList.map(x => ({
