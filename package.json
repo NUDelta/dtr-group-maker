@@ -1,0 +1,28 @@
+{
+  "name": "dtr-group-maker",
+  "version": "1.0.0",
+  "description": "A tool for creating 2 groups for Pair Research and LIP during Studio sessions.",
+  "main": "index.js",
+  "repository": "git@github.com:NUDelta/dtr-group-maker.git",
+  "author": "Kapil Garg <kapil1garg@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "start-watch": "nodemon -r dotenv/config index.js",
+    "dev": "concurrently \"yarn run start-watch\"",
+    "lines": "cloc --exclude-dir=node_modules,.idea --exclude-ext=json ."
+  },
+  "engines" : {
+    "node" : "^16.x"
+  },
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "cloc": "^2.9.0",
+    "concurrently": "^7.1.0",
+    "nodemon": "^2.0.15"
+  }
+}
