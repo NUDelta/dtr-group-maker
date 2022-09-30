@@ -20,37 +20,35 @@ $(function() {
     Updated last: F2021 -- Sep 23, 2021
    */
   const peopleList = [
-    'Leesha',
     'Ryan L',
     'Gobi',
     'Kapil',
-    'Harrison',
-    'Molly',
     'Parveen',
     'Richard',
-    'Yvan',
+    'Victoria',
     'Cindy',
-    'Alexandra',
-    'Jonathan',
-    'Sydney',
-    'Jason',
-    'Hang',
-    'Lauren',
-    'Amy'
+    'Alex A',
+    'Mieraf',
+    'Yabi',
+    'Alex F',
+    'Chase',
+    'Rawan',
+    'Amy',
+    'Dani',
   ];
 
   const phdStudents = new Set([
-    'Leesha',
     'Ryan L',
     'Gobi',
     'Kapil',
-    'Harrison'
   ]);
 
   const teamsList = [
     ['Parveen', 'Richard'],
-    ['Yvan', 'Cindy'],
-    ['Jason', 'Hang']
+    ['Cindy', 'Victoria'],
+    ['Alex A', 'Mieraf'],
+    ['Chase', 'Rawan'],
+    ['Amy', 'Dani'],
   ];
 
   const peopleOptions = peopleList.map(x => ({
